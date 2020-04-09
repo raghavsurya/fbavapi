@@ -6,7 +6,7 @@ namespace FunBooksAndVideosWebApi.Services
 {
     public class PurchaseOrderService : IPurchaseOrderService
     {
-        private readonly IBusinessRules _businessRules;
+        private IBusinessRules _businessRules;
 
         public PurchaseOrderService(IBusinessRules businessRules)
         {
@@ -15,7 +15,18 @@ namespace FunBooksAndVideosWebApi.Services
 
         public void Process(Order order)
         {
-            _businessRules.Apply(order);
+            foreach(var itemLine in order.ItemLines)
+            {
+                if(itemLine.orderType == OrderType.BookMembership || itemLine.orderType == OrderType.VideoMembership)
+                {
+                    _businessRules = new ActivateMembership();
+                }
+                else
+                {
+                    _businessRules = new ShippingSlip();
+                }
+                _businessRules.Apply(order);
+            }
         }
     }
 }

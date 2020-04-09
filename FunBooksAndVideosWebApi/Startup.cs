@@ -32,7 +32,6 @@ namespace FunBooksAndVideosWebApi
            
             services.AddScoped<IBusinessRules, ActivateMembership>();
             //services.AddSingleton<IBusinessRules, ShippingSlip>();
-            services.AddScoped<IMembershipActivationService, ActivateMembershipService>();
             services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
             services.AddScoped<IMappingService, MappingService>();
         }

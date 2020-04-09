@@ -23,13 +23,13 @@ namespace FunBooksAndVideosWebApi.Mapping
             return order;
         }
 
-        public List<(OrderType orderType, string name)> MapItemLines(List<(ItemType itemType, string itemName)> sourceTuple)
+        public List<(OrderType orderType, string name)> MapItemLines(List<ItemLine> sourceTuple)
         {
             var tupleDao = new List<(OrderType orderType, string name)>();
 
             foreach (var item in sourceTuple)
             {
-                tupleDao.Add((MapEnum(item.itemType), item.itemName));
+                tupleDao.Add((MapEnum(item.ItemType), item.Name));
             }
             return tupleDao;
         }
